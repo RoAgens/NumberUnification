@@ -357,7 +357,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_6489709EC2474B39A992DFE0CE198BE3"
             {
-            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2019\\[Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2020\\[Manufacturer]\\[ProductName]"
             "Name" = "8:Application Folder 2020"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -407,8 +407,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NumberSheets"
-        "ProductCode" = "8:{CD4FED5C-204D-4F99-B928-4477045F3133}"
-        "PackageCode" = "8:{F2ACC3CA-58D9-4923-81B2-5F51A8B12785}"
+        "ProductCode" = "8:{A355DB09-1045-48F3-A9D3-D4687DD469A4}"
+        "PackageCode" = "8:{9E8588C3-909E-46FD-9731-C48A5794EE49}"
         "UpgradeCode" = "8:{39778DB8-BC3C-40E5-AD78-3E8B873D4413}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
