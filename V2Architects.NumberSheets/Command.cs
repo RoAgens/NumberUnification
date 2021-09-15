@@ -1,5 +1,4 @@
-﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
+﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
@@ -12,7 +11,6 @@ namespace V2Architects.NumberSheets
     [RegenerationAttribute(RegenerationOption.Manual)]
     class Command : IExternalCommand
     {
-        Dictionary<string, string> unicodeLetterMap;
         Dictionary<string, string> letterUnicodeMap = new Dictionary<string, string>()
         {
             { "А", "\u202A" },
@@ -44,6 +42,38 @@ namespace V2Architects.NumberSheets
             { "Э", "\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C" },
             { "Ю", "\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C" },
             { "Я", "\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C" }
+        };
+        List<Tuple<string, string>> unicodeLetterMap = new List<Tuple<string, string>>()
+        {
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Я"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Ю"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Э"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Щ"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Ш"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Ч"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Ц"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C\u202C", "Х"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C\u202C", "Ф"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C\u202C", "У"),
+            new Tuple<string, string>("\u202C\u202C\u202C\u202C", "Т"),
+            new Tuple<string, string>("\u202C\u202C\u202C", "С"),
+            new Tuple<string, string>("\u202C\u202C", "Р"),
+            new Tuple<string, string>("\u202C", "П"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "О"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "Н"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "М"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "Л"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "К"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "Й"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "И"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "З"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A\u202A", "Ж"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A\u202A", "Е"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A\u202A", "Д"),
+            new Tuple<string, string>("\u202A\u202A\u202A\u202A", "Г"),
+            new Tuple<string, string>("\u202A\u202A\u202A", "В"),
+            new Tuple<string, string>("\u202A\u202A", "Б"),
+            new Tuple<string, string>("\u202A", "А"),
         };
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -78,7 +108,6 @@ namespace V2Architects.NumberSheets
 
                     if (isLetterOff)
                     {
-                        unicodeLetterMap = InvertDictionary(letterUnicodeMap);
                         ReplaceUnicodeWithLetter(sheets);
                     }
                     else
@@ -116,10 +145,10 @@ namespace V2Architects.NumberSheets
             {
                 foreach (var pair in unicodeLetterMap)
                 {
-                    string unicode = pair.Key;
-                    string letter = pair.Value;
+                    string unicode = pair.Item1;
+                    string letter = pair.Item2;
 
-                    if (sheet.SheetNumber.StartsWith(unicode))
+                    if (sheet.SheetNumber.Contains(unicode))
                     {
                         sheet.SheetNumber = sheet.SheetNumber.Replace(unicode, letter);
                         break;
@@ -152,19 +181,6 @@ namespace V2Architects.NumberSheets
             var dockablePane = new DockablePane(dockablePaneId);
             dockablePane.Show();
             dockablePane.Hide();
-        }
-
-        private Dictionary<string, string> InvertDictionary(Dictionary<string, string> origin)
-        {
-            var invert = new Dictionary<string, string>();
-
-            foreach (string letter in origin.Keys)
-            {
-                string unicode = origin[letter];
-                invert.Add(unicode, letter);
-            }
-
-            return invert;
         }
     }
 }
