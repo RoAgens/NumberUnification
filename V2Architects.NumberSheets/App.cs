@@ -70,23 +70,11 @@ namespace V2Architects.NumberSheets
 
         private void CreateButtons(RibbonPanel panel)
         {
-            var buttonOnData = new PushButtonData(
-                "NumberSheetsOn",
-                "Номер листа\n1\u2192А1",
-                typeof(Command).Assembly.Location,
-                typeof(Command).FullName
-            );
-
-            ButtonLetterTurnOn = panel.AddItem(buttonOnData) as PushButton;
-            ButtonLetterTurnOn.LargeImage = GetImageSourceByBitMapFromResource(Properties.Resources.LargeImageOn);
-            ButtonLetterTurnOn.Image = GetImageSourceByBitMapFromResource(Properties.Resources.ImageOn);
-            ButtonLetterTurnOn.ToolTip = "Отобразить заглавную букву в номере листа.\n" +
-                                        $"v{typeof(App).Assembly.GetName().Version}";
-
+            string arrowRight = "\u2192";
 
             var buttonOffData = new PushButtonData(
                 "NumberSheetsOff",
-                "Номер листа\nA1\u21921",
+                $"Номер листа\nA1{arrowRight}1",
                 typeof(Command).Assembly.Location,
                 typeof(Command).FullName
             );
@@ -96,7 +84,21 @@ namespace V2Architects.NumberSheets
             ButtonLetterTurnOff.Image = GetImageSourceByBitMapFromResource(Properties.Resources.ImageOff);
             ButtonLetterTurnOff.ToolTip = "Скрыть заглавную букву в номере листа.\n" +
                                          $"v{typeof(App).Assembly.GetName().Version}";
-            ButtonLetterTurnOff.Visible = false;
+
+
+            var buttonOnData = new PushButtonData(
+                "NumberSheetsOn",
+                $"Номер листа\n1{arrowRight}A1",
+                typeof(Command).Assembly.Location,
+                typeof(Command).FullName
+            );
+
+            ButtonLetterTurnOn = panel.AddItem(buttonOnData) as PushButton;
+            ButtonLetterTurnOn.LargeImage = GetImageSourceByBitMapFromResource(Properties.Resources.LargeImageOn);
+            ButtonLetterTurnOn.Image = GetImageSourceByBitMapFromResource(Properties.Resources.ImageOn);
+            ButtonLetterTurnOn.ToolTip = "Отобразить заглавную букву в номере листа.\n" +
+                                        $"v{typeof(App).Assembly.GetName().Version}";
+            ButtonLetterTurnOn.Visible = false;
         }
 
         private ImageSource GetImageSourceByBitMapFromResource(Bitmap source)
@@ -112,25 +114,28 @@ namespace V2Architects.NumberSheets
         private static void OnViewActivated(object sender, ViewActivatedEventArgs e)
         {
             Document doc = e.Document;
-            bool isLetterOff;
+            bool isLetterOn;  // Ужастное решение, очень просто запутаться в этих флагах,
+                              // если будет возможность, то надо переписать без true / fasle
+                              // Решение отвратительно потому, что для корректной работы нужно поменять
+                              // код в 3х местах
 
             if (!OpenedRevitProjects.ContainsKey(doc))
             {
-                isLetterOff = true;
-                OpenedRevitProjects.Add(doc, isLetterOff);
+                isLetterOn = true;
+                OpenedRevitProjects.Add(doc, isLetterOn);
             }
 
-            isLetterOff = OpenedRevitProjects[doc];
+            isLetterOn = OpenedRevitProjects[doc];
 
-            if (isLetterOff)
-            {
-                ButtonLetterTurnOn.Visible = true;
-                ButtonLetterTurnOff.Visible = false;
-            }
-            else
+            if (isLetterOn)
             {
                 ButtonLetterTurnOn.Visible = false;
                 ButtonLetterTurnOff.Visible = true;
+            }
+            else
+            {
+                ButtonLetterTurnOn.Visible = true;
+                ButtonLetterTurnOff.Visible = false;
             }
         }
     }
