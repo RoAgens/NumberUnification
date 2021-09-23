@@ -100,19 +100,19 @@ namespace V2Architects.NumberSheets
                     return Result.Failed;
                 }
 
-                bool isLetterOff = App.OpenedRevitProjects[doc];
+                bool isLetterOn = App.OpenedRevitProjects[doc];
 
                 using (var t = new Transaction(doc, "Переименование номеров листов"))
                 {
                     t.Start();
 
-                    if (isLetterOff)
+                    if (isLetterOn)
                     {
-                        ReplaceUnicodeWithLetter(sheets);
+                        ReplaceLetterWithUnicode(sheets);
                     }
                     else
                     {
-                        ReplaceLetterWithUnicode(sheets);
+                        ReplaceUnicodeWithLetter(sheets);
                     }
 
                     UpdateReviUI();
@@ -120,9 +120,9 @@ namespace V2Architects.NumberSheets
                     t.Commit();
                 }
 
-                App.OpenedRevitProjects[doc] = !isLetterOff;
-                App.ButtonLetterTurnOn.Visible = !isLetterOff;
-                App.ButtonLetterTurnOff.Visible = isLetterOff;
+                App.OpenedRevitProjects[doc] = !isLetterOn;
+                App.ButtonLetterTurnOn.Visible = isLetterOn;
+                App.ButtonLetterTurnOff.Visible = !isLetterOn;
 
                 return Result.Succeeded;
             }
