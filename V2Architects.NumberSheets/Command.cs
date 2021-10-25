@@ -148,8 +148,11 @@ namespace V2Architects.NumberSheets
                     string unicode = pair.Item1;
                     string letter = pair.Item2;
 
+                    // StartsWith по какой-то причине не работает нормально с символами unicode.
                     if (sheet.SheetNumber.Contains(unicode))
                     {
+                        // есть некоторая проблема: данное решение может привести к тому что все
+                        // символы юникода изменяться на букву.
                         sheet.SheetNumber = sheet.SheetNumber.Replace(unicode, letter);
                         break;
                     }
@@ -168,7 +171,7 @@ namespace V2Architects.NumberSheets
 
                     if (sheet.SheetNumber.StartsWith(letter))
                     {
-                        sheet.SheetNumber = sheet.SheetNumber.Replace(letter, unicode);
+                        sheet.SheetNumber = $"{unicode}{sheet.SheetNumber.Substring(1)}";
                         break;
                     }
                 }
