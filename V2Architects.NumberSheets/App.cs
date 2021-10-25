@@ -70,11 +70,9 @@ namespace V2Architects.NumberSheets
 
         private void CreateButtons(RibbonPanel panel)
         {
-            string arrowRight = "\u2192";
-
             var buttonOffData = new PushButtonData(
                 "NumberSheetsOff",
-                $"Номер листа\nA1{arrowRight}1",
+                $"Нумерация\nбез префикса",
                 typeof(Command).Assembly.Location,
                 typeof(Command).FullName
             );
@@ -88,7 +86,7 @@ namespace V2Architects.NumberSheets
 
             var buttonOnData = new PushButtonData(
                 "NumberSheetsOn",
-                $"Номер листа\n1{arrowRight}A1",
+                $"Нумерация\nc префиксом",
                 typeof(Command).Assembly.Location,
                 typeof(Command).FullName
             );
