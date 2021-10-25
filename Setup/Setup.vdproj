@@ -357,7 +357,7 @@
             }
             "{994432C3-9487-495D-8656-3E829A8DBDDE}:_6489709EC2474B39A992DFE0CE198BE3"
             {
-            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2020\\[Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2020\\[Manufacturer]\\NumberSheets"
             "Name" = "8:Application Folder 2020"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -381,7 +381,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_6D35DBA9C2E146968854A0B56C76EB1F"
             {
-            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2019\\[Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[AppDataFolder]\\Autodesk\\Revit\\Addins\\2019\\[Manufacturer]\\NumberSheets"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -406,16 +406,16 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:NumberSheets"
-        "ProductCode" = "8:{00A86D38-9EE4-475D-81FB-B54D001EB561}"
-        "PackageCode" = "8:{E529E843-1F83-40C8-A760-E7CA707533BD}"
+        "ProductName" = "8:V2 Tools Number Sheets"
+        "ProductCode" = "8:{17C4FF3E-0E07-462E-A5B8-BBFD743C8615}"
+        "PackageCode" = "8:{3407A57C-C052-4F1E-AB3F-85D5E860955B}"
         "UpgradeCode" = "8:{39778DB8-BC3C-40E5-AD78-3E8B873D4413}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:V2Architects"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
