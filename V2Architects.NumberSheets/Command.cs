@@ -12,6 +12,7 @@ namespace V2Architects.NumberSheets
     class Command : IExternalCommand
     {
         private readonly string _codeSymbol = "\u202A";
+        private readonly string _tempCodeSymbol = "\u202B";
 
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -47,13 +48,13 @@ namespace V2Architects.NumberSheets
 
                     foreach (var sheet in sheets)
                     {
-                        sheet.SheetNumber = sheet.SheetNumber + unicodesForGroupsInBrowser[GetGroupKey(sheet, definitions)];
+                        sheet.SheetNumber = sheet.SheetNumber + _tempCodeSymbol;
                     }
 
                     foreach (var sheet in sheets)
                     {
-                        sheet.SheetNumber = sheet.SheetNumber.Replace(_codeSymbol, "");
-                        sheet.SheetNumber = sheet.SheetNumber + unicodesForGroupsInBrowser[GetGroupKey(sheet, definitions)];
+                        sheet.SheetNumber = sheet.SheetNumber.Replace(_tempCodeSymbol, "").Replace(_codeSymbol, "") 
+                            + unicodesForGroupsInBrowser[GetGroupKey(sheet, definitions)];
                     }
 
                     UpdateReviUI();

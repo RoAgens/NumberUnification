@@ -28,12 +28,6 @@
         "Entry"
         {
         "MsmKey" = "8:_2B25B0F37FBCDDB75B64A7F9D11FB480"
-        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2B25B0F37FBCDDB75B64A7F9D11FB480"
         "OwnerKey" = "8:_CB0E03B8173E47928EB4243B46BEA196"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -41,6 +35,12 @@
         {
         "MsmKey" = "8:_2B25B0F37FBCDDB75B64A7F9D11FB480"
         "OwnerKey" = "8:_BB06564C4FBE4DC1B5C10AC06B4A01CB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2B25B0F37FBCDDB75B64A7F9D11FB480"
+        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,12 +64,6 @@
         "Entry"
         {
         "MsmKey" = "8:_83A73BA8E67D7FC7CBF53D93638493DA"
-        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_83A73BA8E67D7FC7CBF53D93638493DA"
         "OwnerKey" = "8:_CB0E03B8173E47928EB4243B46BEA196"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -77,6 +71,12 @@
         {
         "MsmKey" = "8:_83A73BA8E67D7FC7CBF53D93638493DA"
         "OwnerKey" = "8:_BB06564C4FBE4DC1B5C10AC06B4A01CB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_83A73BA8E67D7FC7CBF53D93638493DA"
+        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,12 +112,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CA741764C8627BC7CCAD6DD7D7ACA158"
-        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CA741764C8627BC7CCAD6DD7D7ACA158"
         "OwnerKey" = "8:_CB0E03B8173E47928EB4243B46BEA196"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -125,6 +119,12 @@
         {
         "MsmKey" = "8:_CA741764C8627BC7CCAD6DD7D7ACA158"
         "OwnerKey" = "8:_BB06564C4FBE4DC1B5C10AC06B4A01CB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CA741764C8627BC7CCAD6DD7D7ACA158"
+        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -148,13 +148,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
+        "OwnerKey" = "8:_CB0E03B8173E47928EB4243B46BEA196"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CB0E03B8173E47928EB4243B46BEA196"
+        "OwnerKey" = "8:_68A1E7BF98BB4558B8874899B2329D6B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -567,15 +567,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:V2 Tools Number Sheets"
-        "ProductCode" = "8:{402E3EC3-AB0B-4BD5-AD24-4130D4BCADCE}"
-        "PackageCode" = "8:{CE3A595C-E863-43CE-BD34-D359078FF374}"
+        "ProductCode" = "8:{8BD463A0-52F9-4B03-9A97-9F42464EB990}"
+        "PackageCode" = "8:{9AE2FC5C-298F-4AD8-9213-FC488B94F39B}"
         "UpgradeCode" = "8:{39778DB8-BC3C-40E5-AD78-3E8B873D4413}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.0.1"
         "Manufacturer" = "8:V2Architects"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1054,7 +1054,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_133719286BEF463AB1E73E9EB76A9F0E"
             {
-            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Debug\\V2Architects.NumberSheets.dll"
+            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Release\\V2Architects.NumberSheets.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6489709EC2474B39A992DFE0CE198BE3"
@@ -1082,7 +1082,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_68A1E7BF98BB4558B8874899B2329D6B"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Release\\V2Architects.NumberSheets.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F3AAA8EFF1ED43A89BE2A214E24749AD"
@@ -1110,7 +1110,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB06564C4FBE4DC1B5C10AC06B4A01CB"
             {
-            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Debug\\V2Architects.NumberSheets.dll"
+            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Release\\V2Architects.NumberSheets.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6D35DBA9C2E146968854A0B56C76EB1F"
@@ -1138,7 +1138,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CB0E03B8173E47928EB4243B46BEA196"
             {
-            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Debug\\V2Architects.NumberSheets.dll"
+            "SourcePath" = "8:..\\V2Architects.NumberSheets\\obj\\Release\\V2Architects.NumberSheets.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7673103761B04DEAA7AD632CF7F7E7BC"
