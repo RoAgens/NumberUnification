@@ -63,9 +63,9 @@ namespace V2Architects.NumberSheets.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImageOff {
+        internal static System.Drawing.Bitmap Image {
             get {
-                object obj = ResourceManager.GetObject("ImageOff", resourceCulture);
+                object obj = ResourceManager.GetObject("Image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,30 +73,20 @@ namespace V2Architects.NumberSheets.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImageOn {
+        internal static System.Drawing.Bitmap LargeImage {
             get {
-                object obj = ResourceManager.GetObject("ImageOn", resourceCulture);
+                object obj = ResourceManager.GetObject("LargeImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap LargeImageOff {
+        internal static System.Drawing.Icon Logo {
             get {
-                object obj = ResourceManager.GetObject("LargeImageOff", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap LargeImageOn {
-            get {
-                object obj = ResourceManager.GetObject("LargeImageOn", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }
