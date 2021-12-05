@@ -11,10 +11,13 @@ namespace V2Architects.NumberSheets
     [RegenerationAttribute(RegenerationOption.Manual)]
     class Command : IExternalCommand
     {
+        private readonly string _codeSymbol = "\u202A";
+
+
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            Document doc = commandData.Application.ActiveUIDocument.Document;
-
+            var doc = commandData.Application.ActiveUIDocument.Document;
+            
             try
             {
                 var sheets = new FilteredElementCollector(doc)
@@ -35,34 +38,31 @@ namespace V2Architects.NumberSheets
                     return Result.Failed;
                 }
 
+                var definitions = GetBrowserOrganizationParametersForSheets(doc);
+                var unicodesForGroupsInBrowser = GetUnicodesForBrowserOrganization(sheets, definitions);
 
-                //bool isLetterOn = App.OpenedRevitProjects[doc];
-
-                using (var t = new Transaction(doc, "Переименование номеров листов"))
+                using (var t = new Transaction(doc, "Унификация номеров листов"))
                 {
                     t.Start();
 
-                    var numberManager = new NumberService(sheets);
-                    numberManager.ReplacePrefixWithUnicode();
-                    numberManager.ReplaceUnicodeWithPrefix();
+                    foreach (var sheet in sheets)
+                    {
+                        sheet.SheetNumber = sheet.SheetNumber + unicodesForGroupsInBrowser[GetGroupKey(sheet, definitions)];
+                    }
 
-                    //if (isLetterOn)
-                    //{
-                    //    numberManager.ReplaceSubgroupWithUnicode(out List<string> wrongNubmers);
-                    //}
-                    //else
-                    //{
-                    //    numberManager.ReplaceUnicodeWithSubgroup(out List<string> wrongNubmers);
-                    //}
+                    foreach (var sheet in sheets)
+                    {
+                        sheet.SheetNumber = sheet.SheetNumber.Replace(_codeSymbol, "");
+                        sheet.SheetNumber = sheet.SheetNumber + unicodesForGroupsInBrowser[GetGroupKey(sheet, definitions)];
+                    }
 
                     UpdateReviUI();
 
                     t.Commit();
                 }
 
-                //App.OpenedRevitProjects[doc] = !isLetterOn;
-                //App.ButtonLetterTurnOn.Visible = isLetterOn;
-                //App.ButtonLetterTurnOff.Visible = !isLetterOn;
+                var reportWindow = new ReportWindow("Унификация выполнена.");
+                reportWindow.ShowDialog();
 
                 return Result.Succeeded;
             }
@@ -77,6 +77,49 @@ namespace V2Architects.NumberSheets
                 TaskDialog.Show("Ошибка", message);
                 return Result.Failed;
             }
+        }
+
+        private List<Definition> GetBrowserOrganizationParametersForSheets(Document doc)
+        {
+            var sheet = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Sheets).WhereElementIsNotElementType().First();
+            var org = BrowserOrganization.GetCurrentBrowserOrganizationForSheets(doc);
+            List<FolderItemInfo> folderfields = org.GetFolderItems(sheet.Id).ToList();
+
+            var definitions = new List<Definition>();
+            foreach (FolderItemInfo info in folderfields)
+            {
+                string groupheader = info.Name;
+                var parameterElement = doc.GetElement(info.ElementId) as ParameterElement;
+                definitions.Add(parameterElement.GetDefinition());
+            }
+
+            return definitions;
+        }
+
+        private Dictionary<string, string> GetUnicodesForBrowserOrganization(List<ViewSheet> sheets, List<Definition> definitions)
+        {
+            var unicodeForSubgroups = new Dictionary<string, string>();
+            var startCode = string.Empty;
+
+            var subgroups = sheets.GroupBy(s => GetGroupKey(s, definitions));
+            foreach (var group in subgroups)
+            {
+                startCode = startCode + _codeSymbol;
+                unicodeForSubgroups[group.Key] = startCode;
+            }
+
+            return unicodeForSubgroups;
+        }
+
+        private string GetGroupKey(ViewSheet sheet, List<Definition> definitions)
+        {
+            var key = string.Empty;
+            foreach (var definition in definitions)
+            {
+                key += sheet.get_Parameter(definition).AsString();
+            }
+
+            return key;
         }
 
         private void UpdateReviUI()

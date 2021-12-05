@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Events;
+﻿using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,21 +13,21 @@ namespace V2Architects.NumberSheets
     {
         private string tabName = "V2 Tools";
         private string panelName = "Листы";
+        private string buttonName = "Унификация\nномеров";
+        private string buttonTooltip = "Унификация номеров листов.\n" +
+                                      $"v{typeof(App).Assembly.GetName().Version}";
 
-        public static PushButton ButtonLetterTurnOn { get; set; }
-        public static PushButton ButtonLetterTurnOff { get; set; }
-        public static Dictionary<Document, bool> OpenedRevitProjects { get; set; } = new Dictionary<Document, bool>();
+        public string AssemblyPath { get => typeof(App).Assembly.Location; }
 
         public Result OnStartup(UIControlledApplication revit)
         {
-            if (StartupWrongRevitVersion(revit.ControlledApplication.VersionNumber))
+            if (RunningWrongRevitVersion(revit.ControlledApplication.VersionNumber))
             {
                 return Result.Cancelled;
             }
 
             CreateRibbonTab(revit);
-            CreateButtons(CreateRibbonPanel(revit));
-            revit.ViewActivated += OnViewActivated;
+            CreateButton(CreateRibbonPanel(revit));
 
             return Result.Succeeded;
         }
@@ -40,9 +38,9 @@ namespace V2Architects.NumberSheets
         }
 
 
-        private static bool StartupWrongRevitVersion(string currentRevitVersion)
+        private static bool RunningWrongRevitVersion(string currentRevitVersion)
         {
-            var requiredRevitVersions = new List<string> { "2019", "2020" };
+            var requiredRevitVersions = new List<string> { "2019", "2020", "2021", "2022" };
             return !requiredRevitVersions.Contains(currentRevitVersion);
         }
 
@@ -68,35 +66,19 @@ namespace V2Architects.NumberSheets
             return revit.CreateRibbonPanel(tabName, panelName);
         }
 
-        private void CreateButtons(RibbonPanel panel)
+        private void CreateButton(RibbonPanel panel)
         {
-            var buttonOffData = new PushButtonData(
-                "NumberSheetsOff",
-                $"Нумерация\nбез префикса",
+            var buttonData = new PushButtonData(
+                nameof(NumberSheets),
+                buttonName,
                 typeof(Command).Assembly.Location,
                 typeof(Command).FullName
             );
 
-            ButtonLetterTurnOff = panel.AddItem(buttonOffData) as PushButton;
-            ButtonLetterTurnOff.LargeImage = GetImageSourceByBitMapFromResource(Properties.Resources.LargeImageOff);
-            ButtonLetterTurnOff.Image = GetImageSourceByBitMapFromResource(Properties.Resources.ImageOff);
-            ButtonLetterTurnOff.ToolTip = "Скрыть заглавную букву в номере листа.\n" +
-                                         $"v{typeof(App).Assembly.GetName().Version}";
-
-
-            var buttonOnData = new PushButtonData(
-                "NumberSheetsOn",
-                $"Нумерация\nc префиксом",
-                typeof(Command).Assembly.Location,
-                typeof(Command).FullName
-            );
-
-            ButtonLetterTurnOn = panel.AddItem(buttonOnData) as PushButton;
-            ButtonLetterTurnOn.LargeImage = GetImageSourceByBitMapFromResource(Properties.Resources.LargeImageOn);
-            ButtonLetterTurnOn.Image = GetImageSourceByBitMapFromResource(Properties.Resources.ImageOn);
-            ButtonLetterTurnOn.ToolTip = "Отобразить заглавную букву в номере листа.\n" +
-                                        $"v{typeof(App).Assembly.GetName().Version}";
-            ButtonLetterTurnOn.Visible = false;
+            var pushButton = panel.AddItem(buttonData) as PushButton;
+            pushButton.LargeImage = GetImageSourceByBitMapFromResource(Properties.Resources.LargeImage);
+            pushButton.Image = GetImageSourceByBitMapFromResource(Properties.Resources.Image);
+            pushButton.ToolTip = buttonTooltip;
         }
 
         private ImageSource GetImageSourceByBitMapFromResource(Bitmap source)
@@ -107,34 +89,6 @@ namespace V2Architects.NumberSheets
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions()
             );
-        }
-
-        private static void OnViewActivated(object sender, ViewActivatedEventArgs e)
-        {
-            Document doc = e.Document;
-            bool isLetterOn;  // Ужастное решение, очень просто запутаться в этих флагах,
-                              // если будет возможность, то надо переписать без true / fasle
-                              // Решение отвратительно потому, что для корректной работы нужно поменять
-                              // код в 3х местах
-
-            if (!OpenedRevitProjects.ContainsKey(doc))
-            {
-                isLetterOn = true;
-                OpenedRevitProjects.Add(doc, isLetterOn);
-            }
-
-            isLetterOn = OpenedRevitProjects[doc];
-
-            if (isLetterOn)
-            {
-                ButtonLetterTurnOn.Visible = false;
-                ButtonLetterTurnOff.Visible = true;
-            }
-            else
-            {
-                ButtonLetterTurnOn.Visible = true;
-                ButtonLetterTurnOff.Visible = false;
-            }
         }
     }
 }
